@@ -104,14 +104,24 @@ let filtered = currentCategory === "Home"
 ? tracker
 : tracker.filter(x => x.category === currentCategory);
 
-document.getElementById("mainGrid").innerHTML =
-filtered.map(cardHTML).join("");
+let watchingList = tracker.filter(x => x.status === "Watching");
 
 document.getElementById("currentlyWatching").innerHTML =
-tracker
-.filter(x => x.status === "Watching")
-.map(cardHTML)
-.join("");
+watchingList.length > 0
+? watchingList.map(cardHTML).join("")
+: "";
+
+document.getElementById("mainGrid").innerHTML =
+filtered.length > 0
+? filtered.map(cardHTML).join("")
+: `
+<div class="empty-home">
+    <div class="overlay">
+        <h2>No Series Added Yet</h2>
+        <p>Login and Add Series to Start Tracking</p>
+    </div>
+</div>
+`;
 
 }
 
