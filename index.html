@@ -1,0 +1,186 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>TrackerFlix</title>
+<link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+    <div id="loginModal" class="login-modal hidden">
+  <div class="login-popup">
+
+    <button class="close-login" onclick="closeLogin()">✕</button>
+
+    <h2>Sign in to your account</h2>
+
+    <input type="email" id="email" placeholder="Email">
+    <input type="password" id="password" placeholder="Password">
+
+    <button onclick="login()" class="login-btn">Sign In</button>
+
+    <p>
+      Don't have an account?
+      <span onclick="signup()">Sign Up</span>
+    </p>
+
+  </div>
+</div>
+
+<header>
+    <div class="logo">TrackerFlix</div>
+
+    <nav>
+        <button onclick="setCategory('Home')">Home</button>
+        <button onclick="setCategory('Anime')">Anime</button>
+        <button onclick="setCategory('Donghua')">Donghua</button>
+        <button onclick="setCategory('CDrama')">CDrama</button>
+        <button onclick="setCategory('KDrama')">KDrama</button>
+        <button onclick="setCategory('Movies')">Movies</button>
+        <button onclick="setCategory('WebSeries')">WebSeries</button>
+
+    </nav>
+
+
+    <div class="search-area">
+
+<input
+type="text"
+id="searchInput"
+placeholder="Search In Library..."
+oninput="localSearch()"
+>
+
+<button onclick="openAddSeries()" class="add-series-btn">
+ADD SERIES
+    <div class="profile-menu">
+
+<button class="profile-icon" onclick="toggleProfileMenu()">
+👤
+</button>
+
+<div id="profileDropdown" class="profile-dropdown hidden">
+
+<button onclick="openLogin()">Login</button>
+
+<button onclick="openLogin()">Signup</button>
+
+<button onclick="logout()">Logout</button>
+
+<button onclick="toggleDarkMode()">Dark Mode</button>
+
+<button onclick="contactUs()">Contact</button>
+
+</div>
+
+</div>
+</button>
+
+</div>
+</header>
+
+
+<section class="currently">
+    <h2>Currently Watching</h2>
+    <div id="currentlyWatching" class="row"></div>
+</section>
+
+<section>
+    <h2 id="pageTitle">Home</h2>
+    <div id="mainGrid" class="grid"></div>
+</section>
+
+
+<div id="searchModal" class="modal hidden">
+    <div class="modal-content">
+
+        <button class="top-close" onclick="closeModal()">X</button>
+
+        <h2>Add New Series</h2>
+
+        <input
+        type="text"
+        id="animeSearchInput"
+        placeholder="Search Anime Here..."
+        oninput="searchAnime()"
+        >
+
+        <div id="searchResults"></div>
+
+    </div>
+</div>
+
+
+<div id="categoryModal" class="modal hidden">
+    <div class="modal-content small">
+        <h3>Select Category</h3>
+
+        <select id="categorySelect">
+            <option>Anime</option>
+            <option>Donghua</option>
+            <option>CDrama</option>
+            <option>KDrama</option>
+            <option>Movies</option>
+            <option>WebSeries</option>
+        </select>
+        <select id="statusSelect">
+<option>Planned</option>
+<option>Watching</option>
+<option>Completed</option>
+<option>Paused</option>
+<option>Dropped</option>
+</select>
+
+        <button onclick="confirmAdd()">Add</button>
+        <button onclick="closeCategoryModal()">Close</button>
+    </div>
+</div>
+
+
+<script type="module">
+
+import { initializeApp } from "https://www.gstatic.com/firebasejs/12.2.0/firebase-app.js";
+import {
+getAuth,
+createUserWithEmailAndPassword,
+signInWithEmailAndPassword,
+signOut
+}
+from "https://www.gstatic.com/firebasejs/12.2.0/firebase-auth.js";
+import {
+getFirestore,
+doc,
+setDoc,
+getDoc
+}
+from "https://www.gstatic.com/firebasejs/12.2.0/firebase-firestore.js";
+const firebaseConfig = {
+apiKey: "AIzaSyAm-13tnybtpD3KEwTSnx4JKGYpE0NV_xM",
+authDomain: "trackerflix-9f3cb.firebaseapp.com",
+projectId: "trackerflix-9f3cb",
+storageBucket: "trackerflix-9f3cb.firebasestorage.app",
+messagingSenderId: "191328175525",
+appId: "1:191328175525:web:47f05118cb92e032a9544c"
+};
+
+const app = initializeApp(firebaseConfig);
+const auth = getAuth(app);
+const db = getFirestore(app);
+
+window.auth = auth;
+window.db = db;
+window.doc = doc;
+window.setDoc = setDoc;
+window.getDoc = getDoc;
+window.createUserWithEmailAndPassword = createUserWithEmailAndPassword;
+window.signInWithEmailAndPassword = signInWithEmailAndPassword;
+window.signOut = signOut;
+
+window.firebaseApp = app;
+
+</script>
+<script src="app.js"></script>
+
+</body>
+</html>
