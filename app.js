@@ -106,22 +106,34 @@ let filtered = currentCategory === "Home"
 
 let watchingList = tracker.filter(x => x.status === "Watching");
 
-document.getElementById("currentlyWatching").innerHTML =
-watchingList.length > 0
-? watchingList.map(cardHTML).join("")
-: "";
+if(tracker.length === 0){
 
-document.getElementById("mainGrid").innerHTML =
-filtered.length > 0
-? filtered.map(cardHTML).join("")
-: `
+document.querySelector(".currently").style.display = "none";
+
+document.getElementById("pageTitle").style.display = "none";
+
+document.getElementById("mainGrid").innerHTML = `
 <div class="empty-home">
-    <div class="overlay">
-        <h2>No Series Added Yet</h2>
-        <p>Login and Add Series to Start Tracking</p>
-    </div>
+<div class="overlay">
+<h2>No Series Added Yet</h2>
+<p>Login and Add Series to Start Tracking</p>
+</div>
 </div>
 `;
+
+return;
+
+}
+
+document.querySelector(".currently").style.display = "block";
+
+document.getElementById("pageTitle").style.display = "block";
+
+document.getElementById("currentlyWatching").innerHTML =
+watchingList.map(cardHTML).join("");
+
+document.getElementById("mainGrid").innerHTML =
+filtered.map(cardHTML).join("");
 
 }
 
