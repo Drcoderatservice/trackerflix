@@ -422,6 +422,12 @@ password
 );
 
 alert("Login Successful");
+  let userDoc = await getDoc(doc(window.db, "users", auth.currentUser.uid));
+
+if(userDoc.exists()){
+  tracker = userDoc.data().tracker || [];
+  render();
+}
 let userDoc = await getDoc(
 doc(window.db,"users",window.auth.currentUser.uid)
 );
