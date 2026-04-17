@@ -290,9 +290,7 @@ filtered.map(cardHTML).join("");
 
 
 function openAddSeries(){
-
-document.getElementById("categoryModal").classList.remove("hidden");
-
+  document.getElementById("categoryModal").classList.remove("hidden");
 }
 function closeCategoryModal(){
 
