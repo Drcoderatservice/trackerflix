@@ -135,7 +135,16 @@ function setCategory(cat){
 
 // 🔹 RENDER UI
 function render(){
+let watchingList = tracker.filter(x => x.status === "Watching");
 
+document.getElementById("currentlyWatching").innerHTML =
+  watchingList.map(item => `
+    <div class="card">
+      <img src="${item.image}">
+      <h3>${item.title}</h3>
+      <p>${item.watched}/${item.total} • ${item.status}</p>
+    </div>
+  `).join("");
   let filtered = currentCategory==="Home"
     ? tracker
     : tracker.filter(x=>x.category===currentCategory);
