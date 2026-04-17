@@ -187,6 +187,9 @@ anime.status = "Completed";
 }
 
 localStorage.setItem("tracker", JSON.stringify(tracker));
+  await setDoc(doc(window.db, "users", auth.currentUser.uid), {
+  tracker: tracker
+});
 
 render();
 
