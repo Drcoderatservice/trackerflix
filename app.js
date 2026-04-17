@@ -354,24 +354,30 @@ Add
 `).join("");
 
 }
-function finalAddTMDB(item){
+async function finalAddTMDB(item){
+
+let res = await fetch(
+`https://little-mountain-71e9.sharmarishav2100.workers.dev?details=${item.id}&type=${item.media_type}`
+);
+
+let data = await res.json();
+
+let totalEpisodes = data.number_of_episodes || 1;
 
 tracker.push({
-title:item.title || item.name,
-image:"https://image.tmdb.org/t/p/w500"+item.poster_path,
-watched:selectedStatus==="Completed" ? 1 : 0,
-total:1,
-status:selectedStatus,
-category:selectedCategory
+title: item.title || item.name,
+image: "https://image.tmdb.org/t/p/w500" + item.poster_path,
+watched: selectedStatus === "Completed" ? totalEpisodes : 0,
+total: totalEpisodes,
+status: selectedStatus,
+category: selectedCategory
 });
 
 localStorage.setItem("tracker", JSON.stringify(tracker));
 
-document.getElementById("searchModal")
-.classList.add("hidden");
+document.getElementById("searchModal").classList.add("hidden");
 
 render();
-
 }
 function toggleProfileMenu(){
 document.getElementById("profileDropdown").classList.toggle("hidden");
