@@ -376,11 +376,10 @@ async function finalAddTMDB(id){
   let totalEpisodes = data.number_of_episodes || data.number_of_seasons || 1;
 
   tracker.push({
-   title: item.title || item.name || "Unknown Title",
+   title: "Series",
 
 image: item.poster_path 
-  ? "https://image.tmdb.org/t/p/w500" + item.poster_path 
-  : "https://via.placeholder.com/300x450?text=No+Image",
+ image: item.poster_path 
     watched: selectedStatus === "Completed" ? totalEpisodes : 0,
     total: totalEpisodes,
     status: selectedStatus,
