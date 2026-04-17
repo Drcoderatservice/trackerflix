@@ -192,3 +192,8 @@ document.getElementById("currentlyWatching").innerHTML =
 
 // 🔹 INIT
 render();
+window.openLogin = openLogin;
+window.logout = logout;
+window.toggleDarkMode = toggleDarkMode;
+window.contactUs = contactUs;
+window.toggleProfileMenu = toggleProfileMenu;
