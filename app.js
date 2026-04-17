@@ -537,3 +537,10 @@ function setCategory(category){
 function toggleProfileMenu(){
   document.getElementById("profileDropdown").classList.toggle("hidden");
 }
+function confirmCategory(){
+  selectedCategory = document.getElementById("categorySelect").value;
+  selectedStatus = document.getElementById("statusSelect").value;
+
+  document.getElementById("categoryModal").classList.add("hidden");
+  document.getElementById("searchModal").classList.remove("hidden");
+}
