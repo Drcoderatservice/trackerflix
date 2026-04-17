@@ -358,7 +358,7 @@ async function finalAddTMDB(item)
   let type = "tv"; 
 
   let res = await fetch(
-  `https://little-mountain-71e9.sharmarishav2100.workers.dev?details=${id}&type=${type}`
+  `https://little-mountain-71e9.sharmarishav2100.workers.dev?details=${item.id}&type=${type}`
 );
   let data = await res.json();
 
