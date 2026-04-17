@@ -368,9 +368,8 @@ async function finalAddTMDB(id){
 
   // 🔥 worker se details fetch
   let res = await fetch(
-    `https://little-mountain-71e9.sharmarishav2100.workers.dev?details=${item.id}&type=${type}`
-  );
-
+  `https://little-mountain-71e9.sharmarishav2100.workers.dev?details=${id}&type=${type}`
+);
   let data = await res.json();
 
   // 🔥 correct total episodes
