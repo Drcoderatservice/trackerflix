@@ -356,28 +356,33 @@ Add
 }
 async function finalAddTMDB(item){
 
-let res = await fetch(
-`https://little-mountain-71e9.sharmarishav2100.workers.dev?details=${item.id}&type=${item.media_type}`
-);
+  // 🔥 type fix (important)
+  let type = item.media_type === "tv" ? "tv" : "movie";
 
-let data = await res.json();
+  // 🔥 worker se details fetch
+  let res = await fetch(
+    `https://little-mountain-71e9.sharmarishav2100.workers.dev?details=${item.id}&type=${type}`
+  );
 
-let totalEpisodes = data.number_of_episodes || 1;
+  let data = await res.json();
 
-tracker.push({
-title: item.title || item.name,
-image: "https://image.tmdb.org/t/p/w500" + item.poster_path,
-watched: selectedStatus === "Completed" ? totalEpisodes : 0,
-total: totalEpisodes,
-status: selectedStatus,
-category: selectedCategory
-});
+  // 🔥 correct total episodes
+  let totalEpisodes = data.number_of_episodes || data.number_of_seasons || 1;
 
-localStorage.setItem("tracker", JSON.stringify(tracker));
+  tracker.push({
+    title: item.title || item.name,
+    image: "https://image.tmdb.org/t/p/w500" + item.poster_path,
+    watched: selectedStatus === "Completed" ? totalEpisodes : 0,
+    total: totalEpisodes,
+    status: selectedStatus,
+    category: selectedCategory
+  });
 
-document.getElementById("searchModal").classList.add("hidden");
+  localStorage.setItem("tracker", JSON.stringify(tracker));
 
-render();
+  document.getElementById("searchModal").classList.add("hidden");
+
+  render();
 }
 function toggleProfileMenu(){
 document.getElementById("profileDropdown").classList.toggle("hidden");
