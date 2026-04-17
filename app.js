@@ -5,6 +5,7 @@ let selectedAnime=null;
 async function searchAnime(){
 
 let query=document.getElementById("animeSearchInput").value;
+  let category = selectedCategory;
 let category = document.getElementById("categorySelect")?.value;
 
 if(category==="Movies" || 
