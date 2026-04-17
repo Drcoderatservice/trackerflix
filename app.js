@@ -529,3 +529,20 @@ profileMenu.classList.add("hidden");
 }
 
 });
+// ✅ FIX missing functions
+
+function openAddSeries(){
+  document.getElementById("searchModal").classList.remove("hidden");
+}
+
+function closeModal(){
+  document.getElementById("searchModal").classList.add("hidden");
+}
+
+function setCategory(category){
+  selectedCategory = category;
+}
+
+function toggleProfileMenu(){
+  document.getElementById("profileDropdown").classList.toggle("hidden");
+}
