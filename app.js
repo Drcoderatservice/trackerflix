@@ -361,7 +361,7 @@ Add
 `).join("");
 
 }
-async function finalAddTMDB(item){
+async function finalAddTMDB(id){
 
   // 🔥 type fix (important)
   let type = item.media_type === "tv" ? "tv" : "movie";
