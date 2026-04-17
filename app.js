@@ -187,13 +187,7 @@ anime.status = "Completed";
 }
 
 localStorage.setItem("tracker", JSON.stringify(tracker));
-try{
-  await setDoc(doc(window.db, "users", auth.currentUser.uid), {
-    tracker: tracker
-  });
-}catch(e){
-  console.log("Firestore error:", e);
-}
+
 
 render();
 
@@ -363,23 +357,21 @@ Add
 }
 async function finalAddTMDB(id){
 
-  // 🔥 type fix (important)
-  let type = "tv"; // फिलहाल fix
+  let type = "tv"; 
 
-  // 🔥 worker se details fetch
   let res = await fetch(
   `https://little-mountain-71e9.sharmarishav2100.workers.dev?details=${id}&type=${type}`
 );
   let data = await res.json();
 
-  // 🔥 correct total episodes
   let totalEpisodes = data.number_of_episodes || data.number_of_seasons || 1;
 
   tracker.push({
    title: "Series",
 
 image: item.poster_path 
- image: item.poster_path 
+  ? "https://image.tmdb.org/t/p/w500" + item.poster_path 
+  : "https://via.placeholder.com/300x450?text=No+Image", 
     watched: selectedStatus === "Completed" ? totalEpisodes : 0,
     total: totalEpisodes,
     status: selectedStatus,
@@ -387,6 +379,15 @@ image: item.poster_path
   });
 
   localStorage.setItem("tracker", JSON.stringify(tracker));
+  try{
+  if(window.auth.currentUser){
+    await setDoc(doc(window.db, "users", window.auth.currentUser.uid), {
+      tracker: tracker
+    });
+  }
+}catch(e){
+  console.log("Firestore error:", e);
+}
 
   document.getElementById("searchModal").classList.add("hidden");
 
