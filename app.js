@@ -399,8 +399,13 @@ function contactUs(){
 window.location.href="mailto:yourmail@gmail.com";
 }
 
-function logout(){
-alert("Logged Out");
+async function logout(){
+
+  await signOut(window.auth);
+
+  alert("Logged Out");
+
+  location.reload();
 }
 
 async function login(){
