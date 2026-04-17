@@ -5,11 +5,12 @@ let selectedAnime=null;
 async function searchAnime(){
 
 let query=document.getElementById("animeSearchInput").value;
-if(selectedCategory==="Movies" || 
-selectedCategory==="WebSeries" || 
-selectedCategory==="CDrama" || 
-selectedCategory==="KDrama"){
+let category = document.getElementById("categorySelect")?.value;
 
+if(category==="Movies" || 
+category==="WebSeries" || 
+category==="CDrama" || 
+category==="KDrama"){
 searchTMDB(query);
 return;
 
