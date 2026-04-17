@@ -344,7 +344,7 @@ ${item.release_date?.slice(0,4) || item.first_air_date?.slice(0,4) || "N/A"}
 </p>
 </div>
 
-<button onclick='finalAddTMDB(${item.id})'>
+onclick='finalAddTMDB(${JSON.stringify(item)})'
 Add
 </button>
 
