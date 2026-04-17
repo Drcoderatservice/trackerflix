@@ -434,15 +434,7 @@ if(userDoc.exists()){
   tracker = userDoc.data().tracker || [];
   render();
 }
-let userDoc = await getDoc(
-doc(window.db,"users",window.auth.currentUser.uid)
-);
 
-if(userDoc.exists()){
-tracker = userDoc.data().tracker || [];
-}else{
-tracker = [];
-}
 
 localStorage.setItem("tracker",JSON.stringify(tracker));
 
