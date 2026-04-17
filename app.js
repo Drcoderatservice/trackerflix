@@ -99,13 +99,22 @@ function deleteAnime(title){
   tracker = tracker.filter(x=>x.title!==title);
   save();
 }
-
 function editAnime(title){
-  let item = tracker.find(x=>x.title===title);
+
+  let item = tracker.find(x => x.title === title);
+
+  if(!item) return;
+
+  let newTitle = prompt("Enter new title:", item.title);
   let newTotal = prompt("Enter total episodes:", item.total);
-  if(newTotal){
-    item.total = parseInt(newTotal);
-  }
+  let newWatched = prompt("Enter watched episodes:", item.watched);
+  let newStatus = prompt("Enter status (Planned / Watching / Completed):", item.status);
+
+  if(newTitle) item.title = newTitle;
+  if(newTotal) item.total = parseInt(newTotal);
+  if(newWatched) item.watched = parseInt(newWatched);
+  if(newStatus) item.status = newStatus;
+
   save();
 }
 
