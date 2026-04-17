@@ -353,7 +353,7 @@ Add
 `).join("");
 
 }
-async function finalAddTMDB(id){
+async function finalAddTMDB(item)
 
   let type = "tv"; 
 
