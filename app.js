@@ -364,7 +364,7 @@ Add
 async function finalAddTMDB(id){
 
   // 🔥 type fix (important)
-  let type = item.media_type === "tv" ? "tv" : "movie";
+  let type = "tv"; // फिलहाल fix
 
   // 🔥 worker se details fetch
   let res = await fetch(
