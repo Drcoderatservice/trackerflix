@@ -140,9 +140,20 @@ let watchingList = tracker.filter(x => x.status === "Watching");
 document.getElementById("currentlyWatching").innerHTML =
   watchingList.map(item => `
     <div class="card">
+
       <img src="${item.image}">
+
       <h3>${item.title}</h3>
+
       <p>${item.watched}/${item.total} • ${item.status}</p>
+
+      <div class="actions">
+        <button class="green" onclick="increaseWatch('${item.title}')">+1</button>
+        <button class="white" onclick="decreaseWatch('${item.title}')">-1</button>
+        <button class="yellow" onclick="editAnime('${item.title}')">Edit</button>
+        <button class="red" onclick="deleteAnime('${item.title}')">X</button>
+      </div>
+
     </div>
   `).join("");
   let filtered = currentCategory==="Home"
