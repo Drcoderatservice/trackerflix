@@ -189,7 +189,28 @@ document.getElementById("currentlyWatching").innerHTML =
       </div>
     `).join("");
 }
+function openLogin(){
+  document.getElementById("loginModal").classList.remove("hidden");
+}
 
+function closeLogin(){
+  document.getElementById("loginModal").classList.add("hidden");
+}
+
+function logout(){
+  if(window.auth){
+    signOut(window.auth);
+  }
+  alert("Logged out");
+}
+
+function toggleDarkMode(){
+  document.body.classList.toggle("light-mode");
+}
+
+function contactUs(){
+  window.location.href = "mailto:yourmail@gmail.com";
+}
 // 🔹 INIT
 render();
 window.openLogin = openLogin;
