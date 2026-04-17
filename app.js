@@ -325,7 +325,7 @@ render();
 }
 async function searchTMDB(query){
 
-let apiKey="24e6e585b1ad3ffe34299e7671384519";
+
 
 let res = await fetch(
 `https://little-mountain-71e9.sharmarishav2100.workers.dev?q=${query}`
