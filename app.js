@@ -5,7 +5,7 @@ let selectedAnime=null;
 async function searchAnime(){
 
 let query=document.getElementById("animeSearchInput").value;
-let category = selectedCategory;
+let category = selectedCategory || document.getElementById("categorySelect")?.value;
 
 if(category==="Movies" || 
 category==="WebSeries" || 
@@ -341,7 +341,7 @@ data.results.slice(0,5).map(item=>`
 <div>
 <h3>${item.title || item.name}</h3>
 <p>
-${item.release_date?.slice(0,4) || item.first_air_date?.slice(0,4)}
+${item.release_date?.slice(0,4) || item.first_air_date?.slice(0,4) || "N/A"}
 </p>
 </div>
 
@@ -388,9 +388,7 @@ window.location.href="mailto:yourmail@gmail.com";
 function logout(){
 alert("Logged Out");
 }
-function toggleProfileMenu(){
-document.getElementById("profileDropdown").classList.toggle("hidden");
-}
+
 async function login(){
 
 let email = document.getElementById("email").value;
