@@ -211,6 +211,7 @@ function logout(){
   localStorage.removeItem("currentUser");
   tracker = [];
   render();
+  showSuccess("Logged out successfully 👋");
 }
 
 function toggleDarkMode(){
@@ -235,6 +236,7 @@ function login(){
 
   closeLogin();
   render();
+  showSuccess("Logged in successfully ✅");
 }
 // 🔹 INIT
 render();
