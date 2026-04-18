@@ -134,7 +134,13 @@ function updateStatus(item){
 
 // 🔹 SAVE
 function save(){
-  localStorage.setItem("tracker", JSON.stringify(tracker));
+  let user = localStorage.getItem("currentUser");
+  if(!user){
+    alert("Login first!");
+    return;
+  }
+
+  localStorage.setItem("tracker_" + user, JSON.stringify(tracker));
   render();
 }
 
