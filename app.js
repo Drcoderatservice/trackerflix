@@ -246,3 +246,13 @@ window.toggleProfileMenu = toggleProfileMenu;
 
 
 window.login = login;
+
+document.addEventListener("click", function(e) {
+  let menu = document.getElementById("profileDropdown");
+  let button = document.querySelector(".profile-btn"); // ya jo bhi button hai
+
+  // agar click dropdown ya button pe nahi hua
+  if (menu && !menu.contains(e.target) && !button.contains(e.target)) {
+    menu.classList.add("hidden");
+  }
+});
