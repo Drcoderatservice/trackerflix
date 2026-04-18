@@ -8,6 +8,10 @@ let selectedStatus = "";
 
 // 🔹 CATEGORY SELECT
 function openAddSeries(){
+  // login modal band karo
+  document.getElementById("loginModal").classList.add("hidden");
+
+  // category modal kholo
   document.getElementById("categoryModal").classList.remove("hidden");
 }
 
