@@ -243,3 +243,6 @@ window.logout = logout;
 window.toggleDarkMode = toggleDarkMode;
 window.contactUs = contactUs;
 window.toggleProfileMenu = toggleProfileMenu;
+
+
+window.login = login;
