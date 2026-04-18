@@ -256,3 +256,13 @@ document.addEventListener("click", function(e) {
     menu.classList.add("hidden");
   }
 });
+function showSuccess(message) {
+  let modal = document.getElementById("successModal");
+
+  document.getElementById("successMessage").innerText = message;
+  modal.classList.remove("hidden");
+
+  setTimeout(() => {
+    modal.classList.add("hidden");
+  }, 2000);
+}
