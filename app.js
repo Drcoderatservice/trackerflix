@@ -1,4 +1,7 @@
-let tracker = JSON.parse(localStorage.getItem("tracker")) || [];
+let currentUser = localStorage.getItem("currentUser");
+let tracker = currentUser
+  ? JSON.parse(localStorage.getItem("tracker_" + currentUser)) || []
+  : [];
 let currentCategory = "Home";
 let selectedCategory = "";
 let selectedStatus = "";
