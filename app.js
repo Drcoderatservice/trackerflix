@@ -272,3 +272,6 @@ function showSuccess(message) {
     modal.classList.add("hidden");
   }, 2000);
 }
+function closeCategoryModal(){
+  document.getElementById("categoryModal").classList.add("hidden");
+}
