@@ -73,7 +73,8 @@ async function finalAddTMDB(item){
     category: selectedCategory
   });
 
-  localStorage.setItem("tracker", JSON.stringify(tracker));
+  let user = localStorage.getItem("currentUser");
+localStorage.setItem("tracker_" + user, JSON.stringify(tracker));
 
   document.getElementById("searchModal").classList.add("hidden");
   render();
@@ -207,10 +208,9 @@ function closeLogin(){
 }
 
 function logout(){
-  if(window.auth){
-    signOut(window.auth);
-  }
-  alert("Logged out");
+  localStorage.removeItem("currentUser");
+  tracker = [];
+  render();
 }
 
 function toggleDarkMode(){
@@ -219,6 +219,22 @@ function toggleDarkMode(){
 
 function contactUs(){
   window.location.href = "mailto:yourmail@gmail.com";
+}
+function login(){
+  let username = document.getElementById("username").value.trim();
+
+  if(!username){
+    alert("Enter username");
+    return;
+  }
+
+  localStorage.setItem("currentUser", username);
+
+  // reload tracker for this user
+  tracker = JSON.parse(localStorage.getItem("tracker_" + username)) || [];
+
+  closeLogin();
+  render();
 }
 // 🔹 INIT
 render();
