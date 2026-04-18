@@ -255,10 +255,14 @@ window.login = login;
 
 document.addEventListener("click", function(e) {
   let menu = document.getElementById("profileDropdown");
-  let button = document.querySelector(".profile-btn"); // ya jo bhi button hai
+  let button = document.querySelector(".profile-btn");
 
-  // agar click dropdown ya button pe nahi hua
-  if (menu && !menu.contains(e.target) && !button.contains(e.target)) {
+  if (!menu) return;
+
+  let clickedInsideMenu = menu.contains(e.target);
+  let clickedButton = button ? button.contains(e.target) : false;
+
+  if (!clickedInsideMenu && !clickedButton) {
     menu.classList.add("hidden");
   }
 });
