@@ -8,178 +8,269 @@
 </head>
 
 <body>
-    <div id="loginModal" class="login-modal hidden">
-  <div class="login-popup">
+  <div id="loginModal" class="login-modal hidden">
+    <div class="login-popup">
+      <button type="button" class="close-login" onclick="closeLogin()">&times;</button>
 
-    <button class="close-login" onclick="closeLogin()">✕</button>
+      <div class="login-brand">
+        <span class="login-kicker">TrackerFlix Access</span>
+        <h2>Enter The Tracker Realm</h2>
+        <p class="inline-note">
+          Sign in with Firebase to keep your tracker synced and ready even after GitHub hosting.
+        </p>
+      </div>
 
-    <h2>Sign in to your account</h2>
+      <div class="login-form">
+        <label class="input-label" for="username">Email</label>
+        <div class="input-shell">
+          <span class="input-icon">@</span>
+          <input type="email" id="username" placeholder="Enter your email">
+        </div>
 
-   <input type="email" id="username" placeholder="Enter email">
-    <input type="password" id="password" placeholder="Password">
+        <label class="input-label" for="password">Password</label>
+        <div class="input-shell">
+          <span class="input-icon">&#9679;</span>
+          <input type="password" id="password" placeholder="Enter your password">
+        </div>
 
-    <button onclick="login()" class="login-btn">Sign In</button>
+        <button type="button" onclick="login()" class="login-btn">
+          Sign In
+          <span aria-hidden="true">&rarr;</span>
+        </button>
+      </div>
 
-    <p>
-      Don't have an account?
-      <span onclick="signup()">Sign Up</span>
-    </p>
+      <div class="login-meta">
+        <span class="login-chip">Firebase cloud sync</span>
+        <span class="login-chip">Anime + dramas + movies</span>
+      </div>
 
+      <p class="login-footer">
+        Don't have an account?
+        <span onclick="signup()">Create one</span>
+      </p>
+    </div>
   </div>
-</div>
-<div id="successModal" class="modal hidden">
-  <div class="modal-content">
-    <h2 id="successMessage">Success</h2>
-  </div>
-</div>
-<header>
+
+  <div id="toastContainer" class="toast-container" aria-live="polite" aria-atomic="true"></div>
+
+  <header>
     <div class="logo">TrackerFlix</div>
 
     <nav>
-        <button onclick="setCategory('Home')">Home</button>
-        <button onclick="setCategory('Anime')">Anime</button>
-        <button onclick="setCategory('Donghua')">Donghua</button>
-        <button onclick="setCategory('CDrama')">CDrama</button>
-        <button onclick="setCategory('KDrama')">KDrama</button>
-        <button onclick="setCategory('Movies')">Movies</button>
-        <button onclick="setCategory('WebSeries')">WebSeries</button>
-
+      <button type="button" onclick="setCategory('Home')">Home</button>
+      <button type="button" onclick="setCategory('Anime')">Anime</button>
+      <button type="button" onclick="setCategory('Donghua')">Donghua</button>
+      <button type="button" onclick="setCategory('CDrama')">CDrama</button>
+      <button type="button" onclick="setCategory('KDrama')">KDrama</button>
+      <button type="button" onclick="setCategory('Movies')">Movies</button>
+      <button type="button" onclick="setCategory('WebSeries')">WebSeries</button>
     </nav>
 
-
     <div class="search-area">
+      <input
+        type="text"
+        id="searchInput"
+        placeholder="Search in library..."
+        oninput="localSearch()"
+      >
 
-<input
-type="text"
-id="searchInput"
-placeholder="Search In Library..."
-oninput="localSearch()"
->
+      <button type="button" onclick="openAddSeries()" class="add-series-btn">
+        Add Series
+      </button>
 
-<button onclick="openAddSeries()" class="add-series-btn">
-  ADD SERIES
-</button>
+      <div class="profile-menu">
+        <button
+          type="button"
+          class="profile-icon"
+          aria-label="Open profile menu"
+          onclick="toggleProfileMenu()"
+        >
+          <span id="profileFallback" class="profile-fallback" aria-hidden="true">&#128100;</span>
+          <img id="profileAvatar" class="profile-avatar hidden" alt="Profile picture">
+        </button>
 
-<div class="profile-menu">
-
-  <button class="profile-icon" onclick="toggleProfileMenu()">
-    👤
-  </button>
-
-  <div id="profileDropdown" class="profile-dropdown hidden">
-    <button onclick="openLogin()">Login</button>
-    <button onclick="openLogin()">Signup</button>
-    <button onclick="logout()">Logout</button>
-    <button onclick="toggleDarkMode()">Dark Mode</button>
-    <button onclick="contactUs()">Contact</button>
-  </div>
-
-</div>
-
-</div>
-</header>
-
-
-<section class="currently">
-    <h2>Currently Watching</h2>
-    <div id="currentlyWatching" class="row"></div>
-</section>
-
-<section>
-    <h2 id="pageTitle">Home</h2>
-    <div id="mainGrid" class="grid"></div>
-</section>
-
-
-<div id="searchModal" class="modal hidden">
-    <div class="modal-content">
-
-        <button class="top-close" onclick="closeModal()">X</button>
-
-        <h2>Add New Series</h2>
+        <div id="profileDropdown" class="profile-dropdown hidden">
+          <button type="button" onclick="triggerProfileUpload()">Add Profile Pic</button>
+          <button type="button" onclick="openLogin()">Login</button>
+          <button type="button" onclick="openLogin()">Signup</button>
+          <button type="button" onclick="logout()">Logout</button>
+          <button type="button" onclick="toggleDarkMode()">Dark Mode</button>
+          <button type="button" onclick="contactUs()">Contact</button>
+        </div>
 
         <input
+          type="file"
+          id="profileUploadInput"
+          class="hidden"
+          accept="image/*"
+        >
+      </div>
+    </div>
+  </header>
+
+  <section id="landingSection">
+    <div id="landingHero"></div>
+  </section>
+
+  <section id="currentlySection" class="currently hidden">
+    <h2>Currently Watching</h2>
+    <div id="currentlyWatching" class="row"></div>
+  </section>
+
+  <section id="librarySection" class="hidden">
+    <h2 id="pageTitle">Home</h2>
+    <div id="mainGrid" class="grid"></div>
+  </section>
+
+  <div id="searchModal" class="modal hidden">
+    <div class="modal-content">
+      <button type="button" class="top-close" onclick="closeModal()">X</button>
+
+      <h2>Add New Series</h2>
+
+      <input
         type="text"
         id="animeSearchInput"
-        placeholder="Search Anime Here..."
+        placeholder="Search series here..."
         oninput="searchAnime()"
-        >
+      >
 
-        <div id="searchResults"></div>
-
+      <div id="searchResults"></div>
     </div>
-</div>
+  </div>
 
-
-<div id="categoryModal" class="modal hidden">
+  <div id="categoryModal" class="modal hidden">
     <div class="modal-content small">
-        <h3>Select Category</h3>
+      <h3>Select Category</h3>
 
-        <select id="categorySelect">
-            <option>Anime</option>
-            <option>Donghua</option>
-            <option>CDrama</option>
-            <option>KDrama</option>
-            <option>Movies</option>
-            <option>WebSeries</option>
-        </select>
-        <select id="statusSelect">
-<option>Planned</option>
-<option>Watching</option>
-<option>Completed</option>
-<option>Paused</option>
-<option>Dropped</option>
-</select>
-<button onclick="confirmCategory()">Next</button>
-        <button onclick="confirmAdd()">Add</button>
-        <button onclick="closeCategoryModal()">Close</button>
+      <div class="field-group">
+        <label class="input-label">Category</label>
+        <div id="categoryChoiceButtons" class="choice-group" role="group" aria-label="Category">
+          <button type="button" class="choice-btn" data-category-value="Anime">Anime</button>
+          <button type="button" class="choice-btn" data-category-value="Donghua">Donghua</button>
+          <button type="button" class="choice-btn" data-category-value="CDrama">CDrama</button>
+          <button type="button" class="choice-btn" data-category-value="KDrama">KDrama</button>
+          <button type="button" class="choice-btn" data-category-value="Movies">Movies</button>
+          <button type="button" class="choice-btn" data-category-value="WebSeries">WebSeries</button>
+        </div>
+      </div>
+
+      <div class="field-group">
+        <label class="input-label">Status</label>
+        <div id="statusChoiceButtons" class="choice-group" role="group" aria-label="Status">
+          <button type="button" class="choice-btn" data-status-value="Planned">Planned</button>
+          <button type="button" class="choice-btn" data-status-value="Watching">Watching</button>
+          <button type="button" class="choice-btn" data-status-value="Completed">Completed</button>
+          <button type="button" class="choice-btn" data-status-value="Paused">Paused</button>
+          <button type="button" class="choice-btn" data-status-value="Dropped">Dropped</button>
+        </div>
+      </div>
+
+      <button type="button" onclick="confirmCategory()">Next</button>
+      <button type="button" onclick="closeCategoryModal()">Close</button>
     </div>
-</div>
+  </div>
 
+  <div id="editModal" class="modal hidden">
+    <div class="modal-content edit-modal">
+      <button type="button" class="top-close" onclick="closeEditModal()">X</button>
 
-<script type="module">
+      <h2>Edit Title</h2>
+      <p class="modal-subtext">Update all tracker details in one place.</p>
 
-import { initializeApp } from "https://www.gstatic.com/firebasejs/12.2.0/firebase-app.js";
-import {
-getAuth,
-createUserWithEmailAndPassword,
-signInWithEmailAndPassword,
-signOut
-}
-from "https://www.gstatic.com/firebasejs/12.2.0/firebase-auth.js";
-import {
-getFirestore,
-doc,
-setDoc,
-getDoc
-}
-from "https://www.gstatic.com/firebasejs/12.2.0/firebase-firestore.js";
-const firebaseConfig = {
-apiKey: "AIzaSyAm-13tnybtpD3KEwTSnx4JKGYpE0NV_xM",
-authDomain: "trackerflix-9f3cb.firebaseapp.com",
-projectId: "trackerflix-9f3cb",
-storageBucket: "trackerflix-9f3cb.firebasestorage.app",
-messagingSenderId: "191328175525",
-appId: "1:191328175525:web:47f05118cb92e032a9544c"
-};
+      <form id="editForm" class="edit-form">
+        <div class="field-group">
+          <label class="input-label" for="editTitleInput">Title</label>
+          <input type="text" id="editTitleInput" placeholder="Enter title">
+        </div>
 
-const app = initializeApp(firebaseConfig);
-const auth = getAuth(app);
-const db = getFirestore(app);
+        <div class="form-grid">
+          <div class="field-group">
+            <label class="input-label" for="editTotalInput">Total Episodes</label>
+            <input type="number" id="editTotalInput" min="1" step="1" placeholder="12">
+          </div>
 
-window.auth = auth;
-window.db = db;
-window.doc = doc;
-window.setDoc = setDoc;
-window.getDoc = getDoc;
-window.createUserWithEmailAndPassword = createUserWithEmailAndPassword;
-window.signInWithEmailAndPassword = signInWithEmailAndPassword;
-window.signOut = signOut;
+          <div class="field-group">
+            <label class="input-label" for="editWatchedInput">Watched Episodes</label>
+            <input type="number" id="editWatchedInput" min="0" step="1" placeholder="3">
+          </div>
+        </div>
 
-window.firebaseApp = app;
+        <div class="field-group">
+          <label class="input-label">Status</label>
+          <div id="editStatusButtons" class="choice-group" role="group" aria-label="Edit status">
+            <button type="button" class="choice-btn" data-status-value="Planned">Planned</button>
+            <button type="button" class="choice-btn" data-status-value="Watching">Watching</button>
+            <button type="button" class="choice-btn" data-status-value="Completed">Completed</button>
+            <button type="button" class="choice-btn" data-status-value="Paused">Paused</button>
+            <button type="button" class="choice-btn" data-status-value="Dropped">Dropped</button>
+          </div>
+        </div>
 
-</script>
-<script src="app.js"></script>
+        <div class="modal-actions">
+          <button type="button" class="secondary-btn" onclick="closeEditModal()">Cancel</button>
+          <button type="submit" class="primary-btn">Save Changes</button>
+        </div>
+      </form>
+    </div>
+  </div>
 
+  <div id="deleteModal" class="modal hidden">
+    <div class="modal-content confirm-modal">
+      <button type="button" class="top-close" onclick="closeDeleteModal()">X</button>
+
+      <h2>Delete Title</h2>
+      <p id="deleteModalMessage" class="modal-subtext">
+        Are you sure you want to remove this title from your tracker?
+      </p>
+
+      <div class="modal-actions">
+        <button type="button" class="secondary-btn" onclick="closeDeleteModal()">Cancel</button>
+        <button type="button" class="danger-btn" onclick="confirmDelete()">Delete</button>
+      </div>
+    </div>
+  </div>
+
+  <script type="module">
+    import { initializeApp } from "https://www.gstatic.com/firebasejs/12.2.0/firebase-app.js";
+    import {
+      getAuth,
+      onAuthStateChanged,
+      createUserWithEmailAndPassword,
+      signInWithEmailAndPassword,
+      signOut
+    } from "https://www.gstatic.com/firebasejs/12.2.0/firebase-auth.js";
+    import {
+      getFirestore,
+      doc,
+      setDoc,
+      getDoc
+    } from "https://www.gstatic.com/firebasejs/12.2.0/firebase-firestore.js";
+
+    const firebaseConfig = {
+      apiKey: "AIzaSyAm-13tnybtpD3KEwTSnx4JKGYpE0NV_xM",
+      authDomain: "trackerflix-9f3cb.firebaseapp.com",
+      projectId: "trackerflix-9f3cb",
+      storageBucket: "trackerflix-9f3cb.firebasestorage.app",
+      messagingSenderId: "191328175525",
+      appId: "1:191328175525:web:47f05118cb92e032a9544c"
+    };
+
+    const app = initializeApp(firebaseConfig);
+    const auth = getAuth(app);
+    const db = getFirestore(app);
+
+    window.auth = auth;
+    window.db = db;
+    window.doc = doc;
+    window.setDoc = setDoc;
+    window.getDoc = getDoc;
+    window.onAuthStateChanged = onAuthStateChanged;
+    window.createUserWithEmailAndPassword = createUserWithEmailAndPassword;
+    window.signInWithEmailAndPassword = signInWithEmailAndPassword;
+    window.signOut = signOut;
+    window.firebaseApp = app;
+  </script>
+  <script src="app.js"></script>
 </body>
 </html>
